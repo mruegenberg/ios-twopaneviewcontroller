@@ -12,21 +12,10 @@
 		1C6094A119F63AA900CD200A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1C60949F19F63AA900CD200A /* Main.storyboard */; };
 		1C6094A319F63AA900CD200A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1C6094A219F63AA900CD200A /* Images.xcassets */; };
 		1C6094A619F63AA900CD200A /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1C6094A419F63AA900CD200A /* LaunchScreen.xib */; };
-		1C6094B219F63AAA00CD200A /* TwoPaneViewControllerTestTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C6094B119F63AAA00CD200A /* TwoPaneViewControllerTestTests.m */; };
-		1C6094BD19F63BB800CD200A /* TwoPaneViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C6094BC19F63BB800CD200A /* TwoPaneViewController.m */; };
 		1C6094C019F6FF0000CD200A /* UIRedViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C6094BF19F6FF0000CD200A /* UIRedViewController.m */; };
 		1C6094C319F6FF0E00CD200A /* UIBlueViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C6094C219F6FF0E00CD200A /* UIBlueViewController.m */; };
+		1C6094FB19F7FB6100CD200A /* TwoPaneViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C6094FA19F7FB6100CD200A /* TwoPaneViewController.m */; };
 /* End PBXBuildFile section */
-
-/* Begin PBXContainerItemProxy section */
-		1C6094AC19F63AAA00CD200A /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 1C60948A19F63AA900CD200A /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 1C60949119F63AA900CD200A;
-			remoteInfo = TwoPaneViewControllerTest;
-		};
-/* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		1C60949219F63AA900CD200A /* TwoPaneViewControllerTest.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TwoPaneViewControllerTest.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -37,26 +26,18 @@
 		1C6094A019F63AA900CD200A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		1C6094A219F63AA900CD200A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		1C6094A519F63AA900CD200A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
-		1C6094AB19F63AAA00CD200A /* TwoPaneViewControllerTestTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TwoPaneViewControllerTestTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		1C6094B019F63AAA00CD200A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		1C6094B119F63AAA00CD200A /* TwoPaneViewControllerTestTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TwoPaneViewControllerTestTests.m; sourceTree = "<group>"; };
-		1C6094BB19F63BB800CD200A /* TwoPaneViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TwoPaneViewController.h; sourceTree = "<group>"; };
-		1C6094BC19F63BB800CD200A /* TwoPaneViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TwoPaneViewController.m; sourceTree = "<group>"; };
 		1C6094BE19F6FF0000CD200A /* UIRedViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIRedViewController.h; sourceTree = "<group>"; };
 		1C6094BF19F6FF0000CD200A /* UIRedViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIRedViewController.m; sourceTree = "<group>"; };
 		1C6094C119F6FF0E00CD200A /* UIBlueViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIBlueViewController.h; sourceTree = "<group>"; };
 		1C6094C219F6FF0E00CD200A /* UIBlueViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIBlueViewController.m; sourceTree = "<group>"; };
+		1C6094F919F7FB6100CD200A /* TwoPaneViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TwoPaneViewController.h; path = ../../TwoPaneViewController.h; sourceTree = "<group>"; };
+		1C6094FA19F7FB6100CD200A /* TwoPaneViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TwoPaneViewController.m; path = ../../TwoPaneViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
 		1C60948F19F63AA900CD200A /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		1C6094A819F63AAA00CD200A /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -79,7 +60,6 @@
 			isa = PBXGroup;
 			children = (
 				1C60949219F63AA900CD200A /* TwoPaneViewControllerTest.app */,
-				1C6094AB19F63AAA00CD200A /* TwoPaneViewControllerTestTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -89,12 +69,12 @@
 			children = (
 				1C60949919F63AA900CD200A /* AppDelegate.h */,
 				1C60949A19F63AA900CD200A /* AppDelegate.m */,
-				1C6094BB19F63BB800CD200A /* TwoPaneViewController.h */,
-				1C6094BC19F63BB800CD200A /* TwoPaneViewController.m */,
 				1C6094BE19F6FF0000CD200A /* UIRedViewController.h */,
 				1C6094BF19F6FF0000CD200A /* UIRedViewController.m */,
 				1C6094C119F6FF0E00CD200A /* UIBlueViewController.h */,
 				1C6094C219F6FF0E00CD200A /* UIBlueViewController.m */,
+				1C6094F919F7FB6100CD200A /* TwoPaneViewController.h */,
+				1C6094FA19F7FB6100CD200A /* TwoPaneViewController.m */,
 				1C60949F19F63AA900CD200A /* Main.storyboard */,
 				1C6094A219F63AA900CD200A /* Images.xcassets */,
 				1C6094A419F63AA900CD200A /* LaunchScreen.xib */,
@@ -149,24 +129,6 @@
 			productReference = 1C60949219F63AA900CD200A /* TwoPaneViewControllerTest.app */;
 			productType = "com.apple.product-type.application";
 		};
-		1C6094AA19F63AAA00CD200A /* TwoPaneViewControllerTestTests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 1C6094B819F63AAA00CD200A /* Build configuration list for PBXNativeTarget "TwoPaneViewControllerTestTests" */;
-			buildPhases = (
-				1C6094A719F63AAA00CD200A /* Sources */,
-				1C6094A819F63AAA00CD200A /* Frameworks */,
-				1C6094A919F63AAA00CD200A /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				1C6094AD19F63AAA00CD200A /* PBXTargetDependency */,
-			);
-			name = TwoPaneViewControllerTestTests;
-			productName = TwoPaneViewControllerTestTests;
-			productReference = 1C6094AB19F63AAA00CD200A /* TwoPaneViewControllerTestTests.xctest */;
-			productType = "com.apple.product-type.bundle.unit-test";
-		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -178,10 +140,6 @@
 				TargetAttributes = {
 					1C60949119F63AA900CD200A = {
 						CreatedOnToolsVersion = 6.0.1;
-					};
-					1C6094AA19F63AAA00CD200A = {
-						CreatedOnToolsVersion = 6.0.1;
-						TestTargetID = 1C60949119F63AA900CD200A;
 					};
 				};
 			};
@@ -199,7 +157,6 @@
 			projectRoot = "";
 			targets = (
 				1C60949119F63AA900CD200A /* TwoPaneViewControllerTest */,
-				1C6094AA19F63AAA00CD200A /* TwoPaneViewControllerTestTests */,
 			);
 		};
 /* End PBXProject section */
@@ -215,13 +172,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		1C6094A919F63AAA00CD200A /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -232,28 +182,12 @@
 				1C6094C019F6FF0000CD200A /* UIRedViewController.m in Sources */,
 				1C60949B19F63AA900CD200A /* AppDelegate.m in Sources */,
 				1C60949819F63AA900CD200A /* main.m in Sources */,
+				1C6094FB19F7FB6100CD200A /* TwoPaneViewController.m in Sources */,
 				1C6094C319F6FF0E00CD200A /* UIBlueViewController.m in Sources */,
-				1C6094BD19F63BB800CD200A /* TwoPaneViewController.m in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		1C6094A719F63AAA00CD200A /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				1C6094B219F63AAA00CD200A /* TwoPaneViewControllerTestTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
-
-/* Begin PBXTargetDependency section */
-		1C6094AD19F63AAA00CD200A /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 1C60949119F63AA900CD200A /* TwoPaneViewControllerTest */;
-			targetProxy = 1C6094AC19F63AAA00CD200A /* PBXContainerItemProxy */;
-		};
-/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		1C60949F19F63AA900CD200A /* Main.storyboard */ = {
@@ -373,40 +307,6 @@
 			};
 			name = Release;
 		};
-		1C6094B919F63AAA00CD200A /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(SDKROOT)/Developer/Library/Frameworks",
-					"$(inherited)",
-				);
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
-					"$(inherited)",
-				);
-				INFOPLIST_FILE = TwoPaneViewControllerTestTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/TwoPaneViewControllerTest.app/TwoPaneViewControllerTest";
-			};
-			name = Debug;
-		};
-		1C6094BA19F63AAA00CD200A /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(SDKROOT)/Developer/Library/Frameworks",
-					"$(inherited)",
-				);
-				INFOPLIST_FILE = TwoPaneViewControllerTestTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/TwoPaneViewControllerTest.app/TwoPaneViewControllerTest";
-			};
-			name = Release;
-		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -424,14 +324,6 @@
 			buildConfigurations = (
 				1C6094B619F63AAA00CD200A /* Debug */,
 				1C6094B719F63AAA00CD200A /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-		};
-		1C6094B819F63AAA00CD200A /* Build configuration list for PBXNativeTarget "TwoPaneViewControllerTestTests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				1C6094B919F63AAA00CD200A /* Debug */,
-				1C6094BA19F63AAA00CD200A /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 		};

@@ -7,6 +7,9 @@
 //
 
 #import "AppDelegate.h"
+#import "TwoPaneViewController.h"
+#import "UIRedViewController.h"
+#import "UIBlueViewController.h"
 
 @interface AppDelegate ()
 
@@ -16,6 +19,12 @@
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+    TwoPaneViewController *mainController = (TwoPaneViewController *)self.window.rootViewController;
+    mainController.mainPanelViewController = [UIRedViewController new];
+    mainController.smallPanelViewController = [UIBlueViewController new];
+    mainController.splitSize = 320;
+    mainController.mainPosition = TwoPaneMainSecond;
+    
     // Override point for customization after application launch.
     return YES;
 }

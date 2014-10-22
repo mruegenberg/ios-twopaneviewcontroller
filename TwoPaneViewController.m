@@ -77,7 +77,7 @@
         _splitSize = splitSize;
         if(! self.didSetup) {
             TwoPaneViewControllerView *v = (TwoPaneViewControllerView *)self.view;
-            v.splitSize = (self.mainPosition == TwoPaneMainSecond ? 1.0 : -1.0) * splitSize;
+            v.splitSize = splitSize;
         }
     }
 }
@@ -136,7 +136,6 @@
     [v.dragView addGestureRecognizer:panner];
 }
 
-#define PANE_MIN_SIZE 50
 - (void)panned:(UIGestureRecognizer *)gR {
     UIPanGestureRecognizer *panner = (UIPanGestureRecognizer *)gR;
     TwoPaneViewControllerView *v = (TwoPaneViewControllerView *)self.view;
@@ -173,21 +172,6 @@
             panner.enabled = YES;
         }
     }
-}
-
-- (void)viewDidLoad {
-    [super viewDidLoad];
-    // Do any additional setup after loading the view.
-    
-    self.mainPanelViewController = [UIRedViewController new];
-    self.smallPanelViewController = [UIBlueViewController new];
-    self.splitSize = 320;
-    self.mainPosition = TwoPaneMainFirst;
-}
-
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
 
 @end
