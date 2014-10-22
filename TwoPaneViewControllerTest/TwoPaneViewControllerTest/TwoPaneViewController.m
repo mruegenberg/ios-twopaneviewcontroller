@@ -14,7 +14,6 @@
 
 @property (nonatomic) CGFloat currentSplitPosition;
 @property CGFloat currentSplitOffset;
-//@property CGFloat fixedSplitPosition;
 
 @property (strong) UIView *dragView;
 
@@ -49,6 +48,9 @@
 
 @interface TwoPaneViewController ()
 
+@property BOOL didSetup;
+- (void)setCurrentFromFixedSplit;
+
 @end
 
 @implementation TwoPaneViewController
@@ -61,13 +63,22 @@
     return ((TwoPaneViewControllerView *)self.view).currentSplitPosition;
 }
 
-//- (void)setFixedSplitPosition:(CGFloat)fixedSplitPosition {
-//    ((TwoPaneViewControllerView *)self.view).fixedSplitPosition = fixedSplitPosition;
-//}
-//
-//- (CGFloat)fixedSplitPosition {
-//    return ((TwoPaneViewControllerView *)self.view).fixedSplitPosition;
-//}
+- (void)setCurrentFromFixedSplit {
+    if(self.fixedSplitPosition != 0) {
+        if(self.fixedSplitPosition > 0)
+            self.currentSplitPosition = self.fixedSplitPosition;
+        else // fixedSplitPosition < 0
+            self.currentSplitPosition = self.view.bounds.size.width + self.fixedSplitPosition; // sic
+        [self.view setNeedsLayout];
+    }
+}
+
+- (void)setFixedSplitPosition:(CGFloat)fixedSplitPosition {
+    if(fixedSplitPosition != _fixedSplitPosition) {
+        _fixedSplitPosition = fixedSplitPosition;
+        [self setCurrentFromFixedSplit];
+    }
+}
 
 - (void)setFirstPanelViewController:(UIViewController *)content {
     if(content != _firstPanelViewController) {
@@ -123,16 +134,34 @@
         [v setNeedsLayout];
         
         // TODO: use dynamics in iOS 7+
+        CGFloat targetSplitPosition = 0;
+        BOOL shouldAnimate = NO;
         if(v.currentSplitPosition < PANE_MIN_SIZE) {
-            [UIView animateWithDuration:0.3 animations:^{
-                v.currentSplitPosition = 0;
-                [v setNeedsLayout];
-                [v layoutIfNeeded];
-            }];
+            targetSplitPosition = 0;
+            shouldAnimate = YES;
         }
         else if(v.currentSplitPosition > v.bounds.size.width - PANE_MIN_SIZE) {
+            targetSplitPosition = v.bounds.size.width;
+            shouldAnimate = YES;
+        }
+        else {
+            if(self.fixedSplitPosition != 0) {
+                CGFloat fixedSplitAbsPos = self.fixedSplitPosition < 0 ? v.bounds.size.width + self.fixedSplitPosition : self.fixedSplitPosition;
+                shouldAnimate = YES;
+                if(v.currentSplitPosition < fixedSplitAbsPos / 2) // snap to 0
+                    targetSplitPosition = 0.0;
+                else if(v.currentSplitPosition < fixedSplitAbsPos + (v.bounds.size.width - fixedSplitAbsPos) / 2 ||
+                        v.currentSplitPosition < fixedSplitAbsPos) // snap to split.
+                                                                   // predicate is written this way for readability
+                    targetSplitPosition = fixedSplitAbsPos;
+                else
+                    targetSplitPosition = v.bounds.size.width;
+            }
+        }
+        
+        if(shouldAnimate) {
             [UIView animateWithDuration:0.3 animations:^{
-                v.currentSplitPosition = v.bounds.size.width;
+                v.currentSplitPosition = targetSplitPosition;
                 [v setNeedsLayout];
                 [v layoutIfNeeded];
             }];
@@ -150,7 +179,16 @@
     
     self.firstPanelViewController = [UIRedViewController new];
     self.secondPanelViewController = [UIBlueViewController new];
-    self.currentSplitPosition = 320;
+    self.fixedSplitPosition = -320;
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    if(self.fixedSplitPosition != 0) {
+        if(! self.didSetup) {
+            [self setCurrentFromFixedSplit];
+            self.didSetup = YES;
+        }
+    }
 }
 
 - (void)didReceiveMemoryWarning {

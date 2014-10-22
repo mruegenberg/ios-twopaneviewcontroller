@@ -24,9 +24,11 @@ typedef enum : NSUInteger {
 
 @property (nonatomic) CGFloat currentSplitPosition; // split position / how many pixels in the split direction is the first panel wide / high?
 
-// 0 = no fixing;
+// 0 = no snapping;
 // > 0 = size of first panel is fixed
 // < 0 = size of second panel is fixed to abs(fixedSplitPosition)
+
+// setting this sets the current split position to that value
 @property (nonatomic) CGFloat fixedSplitPosition;
 
 @end
