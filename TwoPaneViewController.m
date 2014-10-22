@@ -7,8 +7,6 @@
 //
 
 #import "TwoPaneViewController.h"
-#import "UIRedViewController.h"
-#import "UIBlueViewController.h"
 
 @interface TwoPaneViewControllerView : UIView
 

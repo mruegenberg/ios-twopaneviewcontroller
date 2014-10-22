@@ -8,7 +8,7 @@ Pod::Spec.new do |s|
 
   s.author       = { "Marcel Ruegenberg" => "github@dustlab.com" }
 
-  s.source       = { :git => "https://github.com/mruegenberg/ios-twopaneviewcontroller", :tag => s.version }
+  s.source       = { :git => "https://github.com/mruegenberg/ios-twopaneviewcontroller.git", :tag => s.version }
 
   s.platform     = :ios, '6.0'
   
