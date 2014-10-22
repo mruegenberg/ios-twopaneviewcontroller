@@ -12,10 +12,13 @@
 
 @interface TwoPaneViewControllerView : UIView
 
-@property (nonatomic) CGFloat currentSplitPosition;
+@property CGFloat splitSize;
+@property TwoPaneMainPosition mainPosition;
 @property CGFloat currentSplitOffset;
 
 @property (strong) UIView *dragView;
+
+- (CGFloat)absSplitPos;
 
 @end
 
@@ -24,21 +27,36 @@
 - (id)init {
     if((self = [super init])) {
         self.dragView = [UIView new];
-        self.dragView.backgroundColor = [[UIColor purpleColor] colorWithAlphaComponent:0.5];
+        self.dragView.backgroundColor = [UIColor clearColor];
         [self addSubview:self.dragView];
     }
     return self;
 }
 
+- (CGFloat)absSplitPos {
+    if(self.mainPosition == TwoPaneMainSecond) return self.splitSize;
+    else return self.bounds.size.width - self.splitSize;
+}
+
 - (void)layoutSubviews {
-    UIView *first  = [self viewWithTag:1];
-    UIView *second = [self viewWithTag:2];
-    CGFloat splitPos = self.currentSplitPosition + self.currentSplitOffset;
-    first.frame = CGRectMake(self.bounds.origin.x, self.bounds.origin.y,
-                             splitPos, self.bounds.size.height);
-    second.frame = CGRectMake(self.bounds.origin.x + splitPos, self.bounds.origin.y,
-                              self.bounds.size.width - splitPos, self.bounds.size.height);
-    self.dragView.frame = CGRectMake(second.frame.origin.x - 10, self.frame.origin.y, 20, second.frame.size.height);
+    UIView *main  = [self viewWithTag:1];
+    UIView *small = [self viewWithTag:2];
+    
+    CGFloat splitPos0 = [self absSplitPos];
+    CGFloat splitPos = splitPos0 + self.currentSplitOffset;
+    CGRect firstFrame = CGRectMake(self.bounds.origin.x, self.bounds.origin.y,
+                                   splitPos, self.bounds.size.height);
+    CGRect secondFrame = CGRectMake(self.bounds.origin.x + splitPos, self.bounds.origin.y,
+                                    self.bounds.size.width - splitPos, self.bounds.size.height);
+    if(self.mainPosition == TwoPaneMainFirst) {
+        main.frame  = firstFrame;
+        small.frame = secondFrame;
+    }
+    else {
+        small.frame = firstFrame;
+        main.frame  = secondFrame;
+    }
+    self.dragView.frame = CGRectMake(splitPos - 10, self.bounds.origin.y, 20, self.frame.size.height);
     [self bringSubviewToFront:self.dragView];
 }
 
@@ -49,63 +67,58 @@
 @interface TwoPaneViewController ()
 
 @property BOOL didSetup;
-- (void)setCurrentFromFixedSplit;
 
 @end
 
 @implementation TwoPaneViewController
 
-- (void)setCurrentSplitPosition:(CGFloat)currentSplitPosition {
-    ((TwoPaneViewControllerView *)self.view).currentSplitPosition = currentSplitPosition;
-}
-
-- (CGFloat)currentSplitPosition {
-    return ((TwoPaneViewControllerView *)self.view).currentSplitPosition;
-}
-
-- (void)setCurrentFromFixedSplit {
-    if(self.fixedSplitPosition != 0) {
-        if(self.fixedSplitPosition > 0)
-            self.currentSplitPosition = self.fixedSplitPosition;
-        else // fixedSplitPosition < 0
-            self.currentSplitPosition = self.view.bounds.size.width + self.fixedSplitPosition; // sic
-        [self.view setNeedsLayout];
+- (void)setSplitSize:(CGFloat)splitSize {
+    if(splitSize != _splitSize) {
+        _splitSize = splitSize;
+        if(! self.didSetup) {
+            TwoPaneViewControllerView *v = (TwoPaneViewControllerView *)self.view;
+            v.splitSize = (self.mainPosition == TwoPaneMainSecond ? 1.0 : -1.0) * splitSize;
+        }
     }
 }
 
-- (void)setFixedSplitPosition:(CGFloat)fixedSplitPosition {
-    if(fixedSplitPosition != _fixedSplitPosition) {
-        _fixedSplitPosition = fixedSplitPosition;
-        [self setCurrentFromFixedSplit];
-    }
+- (void)setMainPosition:(TwoPaneMainPosition)mainPosition {
+    TwoPaneViewControllerView *v = (TwoPaneViewControllerView *)self.view;
+    v.mainPosition = mainPosition;
+    [v setNeedsLayout];
 }
 
-- (void)setFirstPanelViewController:(UIViewController *)content {
-    if(content != _firstPanelViewController) {
-        if(_firstPanelViewController != nil) {
-            [_firstPanelViewController willMoveToParentViewController:nil];
-            [_firstPanelViewController.view removeFromSuperview];
-            [_firstPanelViewController removeFromParentViewController];
+- (TwoPaneMainPosition)mainPosition {
+    TwoPaneViewControllerView *v = (TwoPaneViewControllerView *)self.view;
+    return v.mainPosition;
+}
+
+- (void)setMainPanelViewController:(UIViewController *)content {
+    if(content != _mainPanelViewController) {
+        if(_mainPanelViewController != nil) {
+            [_mainPanelViewController willMoveToParentViewController:nil];
+            [_mainPanelViewController.view removeFromSuperview];
+            [_mainPanelViewController removeFromParentViewController];
         }
         
         [self addChildViewController:content];
-        _firstPanelViewController = content;
+        _mainPanelViewController = content;
         content.view.tag = 1;
         [self.view addSubview:content.view];
         [content didMoveToParentViewController:self];
     }
 }
 
-- (void)setSecondPanelViewController:(UIViewController *)content {
-    if(content != _secondPanelViewController) {
-        if(_secondPanelViewController != nil) {
-            [_secondPanelViewController willMoveToParentViewController:nil];
-            [_secondPanelViewController.view removeFromSuperview];
-            [_secondPanelViewController removeFromParentViewController];
+- (void)setSmallPanelViewController:(UIViewController *)content {
+    if(content != _smallPanelViewController) {
+        if(_smallPanelViewController != nil) {
+            [_smallPanelViewController willMoveToParentViewController:nil];
+            [_smallPanelViewController.view removeFromSuperview];
+            [_smallPanelViewController removeFromParentViewController];
         }
         
         [self addChildViewController:content];
-        _secondPanelViewController = content;
+        _smallPanelViewController = content;
         content.view.tag = 2;
         [self.view addSubview:content.view];
         [content didMoveToParentViewController:self];
@@ -115,10 +128,10 @@
 - (void)loadView {
     TwoPaneViewControllerView *v = [TwoPaneViewControllerView new];
     self.view = v;
-    if(self.firstPanelViewController.view)
-        [v addSubview:self.firstPanelViewController.view];
-    if(self.secondPanelViewController.view)
-        [v addSubview:self.secondPanelViewController.view];
+    if(self.mainPanelViewController.view)
+        [v addSubview:self.mainPanelViewController.view];
+    if(self.smallPanelViewController.view)
+        [v addSubview:self.smallPanelViewController.view];
     UIGestureRecognizer *panner = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(panned:)];
     [v.dragView addGestureRecognizer:panner];
 }
@@ -130,46 +143,35 @@
     
     if(panner.state == UIGestureRecognizerStateEnded || panner.state == UIGestureRecognizerStateCancelled) {
         v.currentSplitOffset = 0;
-        v.currentSplitPosition = MIN(MAX(0,v.currentSplitPosition + [panner translationInView:v].x), v.bounds.size.width);;
+        v.splitSize = v.splitSize + (v.mainPosition == TwoPaneMainFirst ? -1 : 1) * [panner translationInView:v].x;
+        if(v.splitSize < 0) v.splitSize = 0;
+        else if(v.splitSize > v.bounds.size.width) v.splitSize = v.bounds.size.width;
         [v setNeedsLayout];
         
         // TODO: use dynamics in iOS 7+
         CGFloat targetSplitPosition = 0;
-        BOOL shouldAnimate = NO;
-        if(v.currentSplitPosition < PANE_MIN_SIZE) {
+        if(v.splitSize < 0.5 * self.splitSize) {
             targetSplitPosition = 0;
-            shouldAnimate = YES;
-        }
-        else if(v.currentSplitPosition > v.bounds.size.width - PANE_MIN_SIZE) {
-            targetSplitPosition = v.bounds.size.width;
-            shouldAnimate = YES;
         }
         else {
-            if(self.fixedSplitPosition != 0) {
-                CGFloat fixedSplitAbsPos = self.fixedSplitPosition < 0 ? v.bounds.size.width + self.fixedSplitPosition : self.fixedSplitPosition;
-                shouldAnimate = YES;
-                if(v.currentSplitPosition < fixedSplitAbsPos / 2) // snap to 0
-                    targetSplitPosition = 0.0;
-                else if(v.currentSplitPosition < fixedSplitAbsPos + (v.bounds.size.width - fixedSplitAbsPos) / 2 ||
-                        v.currentSplitPosition < fixedSplitAbsPos) // snap to split.
-                                                                   // predicate is written this way for readability
-                    targetSplitPosition = fixedSplitAbsPos;
-                else
-                    targetSplitPosition = v.bounds.size.width;
-            }
+            targetSplitPosition = self.splitSize;
         }
         
-        if(shouldAnimate) {
-            [UIView animateWithDuration:0.3 animations:^{
-                v.currentSplitPosition = targetSplitPosition;
-                [v setNeedsLayout];
-                [v layoutIfNeeded];
-            }];
-        }
+        [UIView animateWithDuration:0.3 animations:^{
+            v.splitSize = targetSplitPosition;
+            [v setNeedsLayout];
+            [v layoutIfNeeded];
+        }];
     }
     else { // moving
-        v.currentSplitOffset = MIN(MAX(-v.currentSplitPosition, [panner translationInView:v].x), v.bounds.size.width - v.currentSplitPosition);
+        CGFloat absSplitPos = [v absSplitPos];
+        v.currentSplitOffset = MIN(MAX(-absSplitPos, [panner translationInView:v].x),
+                                   v.bounds.size.width - absSplitPos);
         [v setNeedsLayout];
+        if(fabs(v.currentSplitOffset) > self.splitSize) { // manually cancel: http://stackoverflow.com/questions/3937831/how-can-i-tell-a-uigesturerecognizer-to-cancel-an-existing-touch
+            panner.enabled = NO;
+            panner.enabled = YES;
+        }
     }
 }
 
@@ -177,18 +179,10 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
-    self.firstPanelViewController = [UIRedViewController new];
-    self.secondPanelViewController = [UIBlueViewController new];
-    self.fixedSplitPosition = -320;
-}
-
-- (void)viewWillAppear:(BOOL)animated {
-    if(self.fixedSplitPosition != 0) {
-        if(! self.didSetup) {
-            [self setCurrentFromFixedSplit];
-            self.didSetup = YES;
-        }
-    }
+    self.mainPanelViewController = [UIRedViewController new];
+    self.smallPanelViewController = [UIBlueViewController new];
+    self.splitSize = 320;
+    self.mainPosition = TwoPaneMainFirst;
 }
 
 - (void)didReceiveMemoryWarning {
@@ -198,11 +192,13 @@
 
 #pragma mark - Navigation
 
-//// In a storyboard-based application, you will often want to do a little preparation before navigation
-//- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-//    ;
-//    // Get the new view controller using [segue destinationViewController].
-//    // Pass the selected object to the new view controller.
-//}
+/*
+// In a storyboard-based application, you will often want to do a little preparation before navigation
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    ;
+    // Get the new view controller using [segue destinationViewController].
+    // Pass the selected object to the new view controller.
+}
+ */
 
 @end

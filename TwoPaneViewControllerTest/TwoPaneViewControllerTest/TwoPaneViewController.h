@@ -15,20 +15,21 @@ typedef enum : NSUInteger {
 } TwoPaneSplitDirection;
  */
 
+typedef enum : NSUInteger {
+    TwoPaneMainSecond = 0,
+    TwoPaneMainFirst,
+} TwoPaneMainPosition;
+
 @interface TwoPaneViewController : UIViewController
 
-@property (nonatomic, strong) IBOutlet UIViewController *firstPanelViewController;
-@property (nonatomic, strong) IBOutlet UIViewController *secondPanelViewController;
+@property (nonatomic, strong) IBOutlet UIViewController *mainPanelViewController;
+@property (nonatomic, strong) IBOutlet UIViewController *smallPanelViewController;
 
 // @property TwoPaneSplitDirection splitDirection;
 
+@property (nonatomic) CGFloat splitSize;
+@property (nonatomic) TwoPaneMainPosition mainPosition;
+
 @property (nonatomic) CGFloat currentSplitPosition; // split position / how many pixels in the split direction is the first panel wide / high?
-
-// 0 = no snapping;
-// > 0 = size of first panel is fixed
-// < 0 = size of second panel is fixed to abs(fixedSplitPosition)
-
-// setting this sets the current split position to that value
-@property (nonatomic) CGFloat fixedSplitPosition;
 
 @end
