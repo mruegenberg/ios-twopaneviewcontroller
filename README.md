@@ -6,15 +6,19 @@ A simple two pane view controller for iPad. Use this if you need functionality s
 Features:
 
 - Just two panes, side by side
-- Draggable split position
-- Support for a fixed split position / ability to hide one panel
-- Sane naming: no *master* and *detail*
-- Simple code. Written in less than two hours
+- Split optionally left or right
+- Draggable hiding of one split controller
+- Simple code. Written in less than three hours. Less than 200 LoC compared to the 1500 LoC madness of `MGSplitViewController`
 - Supports iOS 6 +
 
 Installation
 ------------
 Use the `ios-twopaneviewcontroller` Cocoapod or copy `TwoPaneViewController.h` and `TwoPaneViewController.m` to your project.
+
+TODO
+----
+- Support for vertical split
+- Show visible split line if desired
 
 Usage
 -----
