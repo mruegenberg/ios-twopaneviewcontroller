@@ -147,13 +147,19 @@
         
         // TODO: use dynamics in iOS 7+
         CGFloat targetSplitPosition = 0;
+        BOOL smallIsHidden;
         if(v.splitSize < 0.5 * self.splitSize) {
             targetSplitPosition = 0;
+            smallIsHidden = YES;
         }
         else {
             targetSplitPosition = self.splitSize;
+            smallIsHidden = NO;
         }
         
+        if(self.delegate) {
+            [self.delegate twoPaneViewController:self splitMoved:smallIsHidden];
+        }
         [UIView animateWithDuration:0.3 animations:^{
             v.splitSize = targetSplitPosition;
             [v setNeedsLayout];

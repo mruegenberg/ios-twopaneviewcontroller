@@ -20,6 +20,8 @@ typedef enum : NSUInteger {
     TwoPaneMainFirst,
 } TwoPaneMainPosition;
 
+@protocol TwoPaneViewControllerDelegate;
+
 @interface TwoPaneViewController : UIViewController
 
 @property (nonatomic, strong) IBOutlet UIViewController *mainPanelViewController;
@@ -31,5 +33,15 @@ typedef enum : NSUInteger {
 @property (nonatomic) TwoPaneMainPosition mainPosition;
 
 @property (nonatomic) CGFloat currentSplitPosition; // split position / how many pixels in the split direction is the first panel wide / high?
+
+@property (assign) id<TwoPaneViewControllerDelegate> delegate;
+
+@end
+
+
+
+@protocol TwoPaneViewControllerDelegate <NSObject>
+
+- (void)twoPaneViewController:(TwoPaneViewController *)splitController splitMoved:(BOOL)smallPanelHidden;
 
 @end

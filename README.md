@@ -22,7 +22,7 @@ TODO
 
 Usage
 -----
-TODO: code sample
+See the demo project.
 
 Screenshots
 -----------
